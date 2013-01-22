@@ -17,9 +17,27 @@ class IWCCTwitterPortlet(IPortletDataProvider):
     Define your portlet schema here
     """
     username = schema.TextLine(title=_(u'Username'), required=True)
+    height = schema.Int(title=_(u'Height'), default=300)
+    width = schema.Int(title=_(u'Width'), default=620)
+    interval = schema.Int(title=_(u'Interval'), default=7000)
+    shell_background = schema.TextLine(title=_(u'Shell background color'), default=u'#dbdbdb')
+    shell_color = schema.TextLine(title=_(u'Shell text color'), default=u"#000000")
+    tweets_background = schema.TextLine(title=_(u'Tweets background color'), default=u'#ffffff')
+    tweets_color = schema.TextLine(title=_(u'Tweets text color'), default=u'#000000')
+    tweets_link = schema.TextLine(title=_(u'Tweets link color'), default=u'#205c90')
 
 class Assignment(base.Assignment):
     implements(IWCCTwitterPortlet)
+
+    username = ''
+    height = 300
+    width = 620
+    interval = 7000
+    shell_background = '#dbdbdb'
+    shell_color = '#000000'
+    tweets_background = '#ffffff'
+    tweets_color = '#000000'
+    tweets_link = '#205c90'
 
     def __init__(self, **kwargs):
         for k, v in kwargs.items():
@@ -46,6 +64,17 @@ new TWTR.Widget({
   interval: 7000,
   width: 620,
   height: 300,
+  theme: {
+    shell: {
+      background: '%(shell_background)s',
+      color: '%(shell_color)s'
+    },
+    tweets: {
+      background: '%(tweets_background)s',
+      color: '%(tweets_color)s',
+      links: '%(tweets_link)s'
+    }
+  },
   features: {
     scrollbar: false,
     loop: false,
@@ -55,8 +84,15 @@ new TWTR.Widget({
     avatars: true,
     behavior: 'default'
   }
-}).render().setUser('%s').start();
-        """ % self.data.username
+}).render().setUser('%(username)s').start();
+        """ % {
+            'username': self.data.username,
+            'shell_background': self.data.shell_background,
+            'shell_color': self.data.shell_color,
+            'tweets_background': self.data.tweets_background,
+            'tweets_color': self.data.tweets_color,
+            'tweets_link': self.data.tweets_link
+        }
 
 class AddForm(base.AddForm):
     form_fields = form.Fields(IWCCTwitterPortlet)
