@@ -2,5 +2,9 @@
 <portlets>
 
     <!-- -*- extra stuff goes here -*- -->
+ <portlet 
+   addview="wcc.twitterportlet.portlet.WCCTwitterPortlet"
+   title="WCC Twitter Portlet"
+   description=""/>
 
 </portlets>

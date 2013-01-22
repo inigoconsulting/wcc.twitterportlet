@@ -1,0 +1,9 @@
+<div class="portlet portletWCCTwitterPortlet"
+    i18n:domain="wcc.twitterportlet">
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+
+<script tal:content="structure view/script">
+
+</script>
+
+</div>
