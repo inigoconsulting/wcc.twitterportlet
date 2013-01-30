@@ -61,9 +61,9 @@ new TWTR.Widget({
   version: 2,
   type: 'profile',
   rpp: 4,
-  interval: 7000,
-  width: 620,
-  height: 300,
+  interval: %(interval)s,
+  width: %(width)s,
+  height: %(height)s,
   theme: {
     shell: {
       background: '%(shell_background)s',
@@ -86,6 +86,9 @@ new TWTR.Widget({
   }
 }).render().setUser('%(username)s').start();
         """ % {
+            'interval': self.data.interval,
+            'height': self.data.height,
+            'width': self.data.width,
             'username': self.data.username,
             'shell_background': self.data.shell_background,
             'shell_color': self.data.shell_color,
